@@ -14,6 +14,11 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                poppins: ['Poppins', 'sans-serif'],
+                openSans: ['Open Sans', 'sans-serif'],
+            },
+            colors: {
+                accent: "#1D9BF0",
             },
         },
     },
