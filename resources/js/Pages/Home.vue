@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
-import LoginForm from "@/Pages/login.vue";
-import SignUpForm from "@/Pages/signup.vue";
+import LoginForm from "@/Components/loginForm.vue";
+import SignUpForm from "@/Components/signupForm.vue";
 
 const showLoginForm = ref(false);
 const showSignupForm = ref(false);
@@ -62,9 +62,9 @@ const closeDialog = () => {
             </div>
         </div>
 
-        <dialog ref="currentModal" class="backdrop:bg-white backdrop:bg-opacity-10 bg-black text-white p-5 rounded-xl">
+        <dialog ref="currentModal" class="backdrop:bg-white backdrop:bg-opacity-10 bg-black text-white p-5 rounded-xl min-h-[90%] min-w-[40%]">
             <button @click="closeDialog"><i class="fa-solid fa-x"></i></button>
-            <div class="overflow-x-hidden overflow-y-visible size-52">
+            <div class="overflow-x-hidden overflow-y-visible mt-5 size-full">
                 <LoginForm v-if="showLoginForm" />
                 <SignUpForm v-if="showSignupForm" />
             </div>
