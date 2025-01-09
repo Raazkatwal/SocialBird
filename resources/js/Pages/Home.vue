@@ -8,7 +8,6 @@ const showLoginForm = ref(false);
 const showSignupForm = ref(false);
 const currentModal = ref(null);
 
-// Open the dialog when Login or Create account is clicked
 const openDialog = (form) => {
     if (form === 'login') {
         showLoginForm.value = true;
@@ -65,8 +64,8 @@ const closeDialog = () => {
         <dialog ref="currentModal" class="backdrop:bg-white backdrop:bg-opacity-10 bg-black text-white p-5 rounded-xl min-h-[90%] min-w-[40%]">
             <button @click="closeDialog"><i class="fa-solid fa-x"></i></button>
             <div class="overflow-x-hidden overflow-y-visible mt-5 size-full">
-                <LoginForm v-if="showLoginForm" />
-                <SignUpForm v-if="showSignupForm" />
+                <LoginForm v-if="showLoginForm" @opensignup="openDialog('signup')"/>
+                <SignUpForm v-if="showSignupForm" @openlogin="openDialog('login')"/>
             </div>
         </dialog>
     </div>
