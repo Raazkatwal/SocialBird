@@ -50,7 +50,7 @@ function submit() {
     <form @submit.prevent="submit" class="flex select-none flex-col items-center justify-items-center gap-5 text-2xl w-[40rem] px-12">
         <h1 class="text-3xl font-extrabold uppercase">Create Your Account</h1>
         <input type="text" name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
-            placeholder="Name" v-model="form.name" required/>
+            placeholder="Username" v-model="form.name" required/>
         <input type="email" name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
             placeholder="Email" v-model="form.email" required/>
         <input type="password" name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
