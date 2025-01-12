@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import { defineEmits, ref } from "vue";
 
 const emit = defineEmits(['openlogin']);
@@ -29,44 +29,56 @@ for (let year = currentYear; year >= startYear; year--) {
 for (let i = 1; i <= 31; i++) {
     days.value.push(i);
 }
+
+const form = useForm({
+    name: null,
+    email: null,
+    password: null,
+    day: '',
+    month: '',
+    year: '',
+})
+
+function submit() {
+    form.post(route('signup'));
+}
 </script>
 
 <template>
 
     <Head title="Create Account" />
-    <form action="" class="flex select-none flex-col items-center justify-items-center gap-5 text-2xl w-[40rem] px-12">
+    <form @submit.prevent="submit" class="flex select-none flex-col items-center justify-items-center gap-5 text-2xl w-[40rem] px-12">
         <h1 class="text-3xl font-extrabold uppercase">Create Your Account</h1>
         <input type="text" name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
-            placeholder="Name" />
+            placeholder="Name" v-model="form.name" required/>
         <input type="email" name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
-            placeholder="Email" />
+            placeholder="Email" v-model="form.email" required/>
         <input type="password" name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
-            placeholder="Password" />
+            placeholder="Password" v-model="form.password" required/>
         <div class="w-full">
             <p class="text-lg">Date of birth</p>
             <div class="flex gap-3">
-                <select name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white">
-                    <option value="" class="bg-black text-white" disabled selected>Year</option>
-                    <option v-for="year in years" :key="year" :value="year" class="bg-black text-white">
-                        {{ year }}
-                    </option>
-
-                </select>
-                <select name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white">
-                    <option value="" class="bg-black text-white" disabled selected>Month</option>
-                    <option v-for="month in months" :key="month" :value="month" class="bg-black text-white">
-                        {{ month }}
-                    </option>
-                </select>
-                <select name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white">
-                    <option value="" class="bg-black text-white" disabled selected>Day</option>
+                <select class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white" v-model="form.day" required>
+                    <option value="" class="bg-black text-white" disabled>Day</option>
                     <option v-for="day in days" :key="day" :value="day" class="bg-black text-white">
                         {{ day }}
                     </option>
                 </select>
+                <select class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white" v-model="form.month" required>
+                    <option value="" class="bg-black text-white" disabled>Month</option>
+                    <option v-for="month in months" :key="month" :value="month" class="bg-black text-white">
+                        {{ month }}
+                    </option>
+                </select>
+                <select class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white" v-model="form.year" required>
+                    <option value="" class="bg-black text-white" disabled>Year</option>
+                    <option v-for="year in years" :key="year" :value="year" class="bg-black text-white">
+                        {{ year }}
+                    </option>
+                </select>
             </div>
         </div>
-        <button class="h-12 w-1/2 rounded-full bg-white font-openSans font-bold text-[#30353A] text-lg">
+        <button class="h-12 w-1/2 rounded-full bg-white font-openSans font-bold text-[#30353A] text-lg" type="submit">
             Next
         </button>
         <p class="text-lg">
