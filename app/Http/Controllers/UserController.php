@@ -13,12 +13,17 @@ class UserController extends Controller
     public function signup(Request $r)
     {
         $r->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+            'name' => 'required|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
             'day' => 'required|numeric',
             'month' => 'required|string',
             'year' => 'required|numeric',
+        ], [
+            "name.required" => "Username is required",
+            "name.unique" => "The Username has already been taken",
+            "email.email" => "Invalid Email address",
+            "email.unique" => "The Email has already been taken",
         ]);
 
         // Convert the day, month, and year into a valid date format using Carbon
@@ -56,10 +61,22 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
+        $user = User::where('email', $r->email_or_username)
+            ->orWhere('username', $r->email_or_username)
+            ->first();
+
+        if (!$user) {
+            return back()->withErrors(['email_or_username' => 'The provided Email or Username does not exist.']);
+        }
+        if (!Hash::check($r->password, $user->password)) {
+            return back()->withErrors(['password' => 'The provided password is incorrect.']);
+        }
+
         $credentials = [
             'password' => $r->password,
         ];
-    
+
+        //checks if username is given or email is given in the form
         if (filter_var($r->email_or_username, FILTER_VALIDATE_EMAIL)) {
             $credentials['email'] = $r->email_or_username;
         } else {
@@ -70,6 +87,7 @@ class UserController extends Controller
         if (Auth::attempt($credentials, $r->filled('remember'))) {
             return redirect()->route('home');
         }
+
     }
 
     public function logout()

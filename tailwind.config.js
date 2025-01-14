@@ -12,6 +12,9 @@ export default {
 
     theme: {
         extend: {
+            screens: {
+                xs: '425px'
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 poppins: ['Poppins', 'sans-serif'],

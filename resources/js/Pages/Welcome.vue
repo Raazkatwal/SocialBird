@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { ref } from "vue";
+import { Head } from "@inertiajs/vue3";
 import LoginForm from "@/Components/loginForm.vue";
 import SignUpForm from "@/Components/signupForm.vue";
 
@@ -9,10 +9,10 @@ const showSignupForm = ref(false);
 const currentModal = ref(null);
 
 const openDialog = (form) => {
-    if (form === 'login') {
+    if (form === "login") {
         showLoginForm.value = true;
         showSignupForm.value = false;
-    } else if (form === 'signup') {
+    } else if (form === "signup") {
         showLoginForm.value = false;
         showSignupForm.value = true;
     }
@@ -31,41 +31,53 @@ const closeDialog = () => {
 </script>
 
 <template>
+
     <Head title="Home" />
-    <div class="gap-5 flex h-screen items-center justify-between px-32 py-16">
+    <div class="flex min-h-screen flex-col items-center justify-items-center lg:justify-between gap-5 xl:px-32 lg:py-16 lg:flex-row lg:px-12 py-10">
         <div>
-            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" width="400" height="300">
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="lg:w-96 sm:w-72 xs:w-52 w-32">
                 <path
                     d="M240 70H120l10 70h70l10 20 10 50 10 25H100M280 70v165m0-165h70a50 50 0 0 1 0 80h-70m0 0h70a50 50 0 0 1 0 85h-70"
                     stroke="#fff" stroke-width="30" stroke-linejoin="bevel" fill="none" />
             </svg>
         </div>
 
-        <div>
-            <h1 class="mb-12 font-poppins text-6xl font-extrabold">
+        <div class="flex flex-col items-center lg:items-start">
+            <h1 class="mb-12 font-poppins sm:text-6xl text-3xl xs:text-4xl font-extrabold">
                 Happening Now.
             </h1>
-            <div class="flex flex-col gap-4 w-3/5">
-                <h3 class="font-openSans text-4xl font-bold text-left mb-5">Join Today.</h3>
+            <div class="flex lg:w-3/5 w-5/6 flex-col gap-4">
+                <h3 class="mb-5 text-left font-openSans sm:text-3xl text-xl font-bold">
+                    Join Today.
+                </h3>
                 <button @click="openDialog('login')"
-                    class="bg-transparent w-full h-12 font-bold font-openSans rounded-full border border-gray-600 text-accent">Login</button>
+                    class="h-12 w-full rounded-full border border-gray-600 bg-transparent font-openSans font-bold text-accent">
+                    Login
+                </button>
                 <div class="flex items-center">
-                    <hr class="flex-grow border-gray-600">
+                    <hr class="flex-grow border-gray-600" />
                     <span class="px-2 text-gray-500">or</span>
-                    <hr class="flex-grow border-gray-600">
+                    <hr class="flex-grow border-gray-600" />
                 </div>
-                <button @click="openDialog('signup')" class="bg-accent w-full h-12 font-bold font-openSans rounded-full">Create account</button>
-                <p class="text-xs text-gray-500">By signing up, you agree to the <span class="text-accent">Terms of
-                        Service</span> and <span class="text-accent">Privacy Policy</span>, including <span
-                        class="text-accent">Cookie Use.</span></p>
+                <button @click="openDialog('signup')"
+                    class="h-12 w-full rounded-full bg-accent font-openSans font-bold">
+                    Create account
+                </button>
+                <p class="text-xs text-gray-500">
+                    By signing up, you agree to the
+                    <span class="text-accent">Terms of Service</span> and
+                    <span class="text-accent">Privacy Policy</span>, including
+                    <span class="text-accent">Cookie Use.</span>
+                </p>
             </div>
         </div>
 
-        <dialog ref="currentModal" class="backdrop:bg-white backdrop:bg-opacity-10 bg-black text-white p-5 rounded-xl min-h-[90%] min-w-[40%]">
+        <dialog ref="currentModal"
+            class="min-h-[90%] min-w-[40%] rounded-xl bg-black p-5 text-white backdrop:bg-white backdrop:bg-opacity-10">
             <button @click="closeDialog"><i class="fa-solid fa-x"></i></button>
-            <div class="overflow-x-hidden overflow-y-visible mt-5 size-full">
-                <LoginForm v-if="showLoginForm" @opensignup="openDialog('signup')"/>
-                <SignUpForm v-if="showSignupForm" @openlogin="openDialog('login')"/>
+            <div class="mt-5 size-full overflow-x-hidden overflow-y-visible">
+                <LoginForm v-if="showLoginForm" @opensignup="openDialog('signup')" />
+                <SignUpForm v-if="showSignupForm" @openlogin="openDialog('login')" />
             </div>
         </dialog>
     </div>

@@ -5,7 +5,6 @@ defineProps({isLoggedIn: Boolean, loggedUser: Object});
 </script>
 
 <template>
-    <!-- {{ user }} -->
     <Welcome v-if="isLoggedIn===false"/>
     <Home v-else :user=loggedUser />
 </template>
