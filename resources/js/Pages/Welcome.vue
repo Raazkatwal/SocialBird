@@ -42,7 +42,7 @@ const closeDialog = () => {
             </svg>
         </div>
 
-        <div class="flex flex-col items-center lg:items-start">
+        <div class="flex flex-col items-center lg:items-start gap-10 lg:gap-0">
             <h1 class="mb-12 font-poppins sm:text-6xl text-3xl xs:text-4xl font-extrabold">
                 Happening Now.
             </h1>
@@ -73,8 +73,10 @@ const closeDialog = () => {
         </div>
 
         <dialog ref="currentModal"
-            class="min-h-[90%] min-w-[40%] rounded-xl bg-black p-5 text-white backdrop:bg-white backdrop:bg-opacity-10">
-            <button @click="closeDialog"><i class="fa-solid fa-x"></i></button>
+            class="min-w-[40%] rounded-xl bg-black p-5 text-white backdrop:bg-white backdrop:bg-opacity-10">
+            <div class="flex items-center justify-end justify-items-center">
+                <button @click="closeDialog"><i class="fa-solid fa-x"></i></button>
+            </div>
             <div class="mt-5 size-full overflow-x-hidden overflow-y-visible">
                 <LoginForm v-if="showLoginForm" @opensignup="openDialog('signup')" />
                 <SignUpForm v-if="showSignupForm" @openlogin="openDialog('login')" />

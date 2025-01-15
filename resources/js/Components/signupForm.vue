@@ -48,7 +48,7 @@ function submit() {
 
     <Head title="Create Account" />
     <form @submit.prevent="submit"
-        class="flex select-none flex-col items-center justify-items-center gap-5 text-2xl w-[40rem] px-12">
+        class="flex select-none flex-col items-center justify-items-center gap-5 text-2xl md:w-[40rem] md:px-12 px-2">
         <h1 class="text-3xl font-extrabold uppercase">Create Your Account</h1>
 
         <div class="w-full">
@@ -72,7 +72,7 @@ function submit() {
         <div class="w-full">
             <p class="text-lg">Date of birth</p>
 
-            <div class="flex gap-3">
+            <div class="flex gap-3 flex-col md:flex-row">
 
                 <select class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white" v-model="form.day"
                     required>
