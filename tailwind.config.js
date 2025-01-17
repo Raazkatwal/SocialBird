@@ -21,7 +21,8 @@ export default {
                 openSans: ['Open Sans', 'sans-serif'],
             },
             colors: {
-                accent: "#1D9BF0",
+                // accent: "#1D9BF0",
+                accent: "#10b981",
             },
         },
     },

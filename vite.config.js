@@ -17,11 +17,11 @@ export default defineConfig({
             },
         }),
     ],
-    server: {
-        host: '0.0.0.0', // Allow connections from other devices
-        port: 5173, 
-        hmr: {
-            host: '192.168.0.106', // Laptop's IP address
-        },
-    },
+    // server: {
+    //     host: '0.0.0.0', // Allow connections from other devices
+    //     port: 5173, 
+    //     hmr: {
+    //         host: '192.168.0.106', // Laptop's IP address
+    //     },
+    // },
 });

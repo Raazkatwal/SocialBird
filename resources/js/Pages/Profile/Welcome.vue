@@ -75,7 +75,7 @@ const closeDialog = () => {
         <dialog ref="currentModal"
             class="min-w-[40%] rounded-xl bg-black p-5 text-white backdrop:bg-white backdrop:bg-opacity-10">
             <div class="flex items-center justify-end justify-items-center">
-                <button @click="closeDialog"><i class="fa-solid fa-x"></i></button>
+                <button @click="closeDialog"><font-awesome-icon icon="fa-x" /></button>
             </div>
             <div class="mt-5 size-full overflow-x-hidden overflow-y-visible">
                 <LoginForm v-if="showLoginForm" @opensignup="openDialog('signup')" />
