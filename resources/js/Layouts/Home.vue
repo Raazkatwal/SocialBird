@@ -1,8 +1,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import dayjs from "dayjs";
 import { Head, Link } from "@inertiajs/vue3";
+import sidebar from "@/Components/SideBar.vue";
+import Post from "@/Components/Post.vue";
 
 const props = defineProps({ user: Object, posts: Object });
 
@@ -12,11 +13,10 @@ const totalPages = ref(props.posts.last_page);
 const isLoading = ref(false);
 const noMorePosts = ref(false);
 
-const formatDate = (date) => dayjs(date).format("hh:mm A - YYYY/MM/DD");
 
 // Fetch posts on scroll
 const fetchMorePosts = async () => {
-    if (isLoading.value || currentPage.value >= totalPages.value){
+    if (isLoading.value || currentPage.value >= totalPages.value) {
         noMorePosts.value = true;
         return;
     } // Stop if no more posts
@@ -27,7 +27,7 @@ const fetchMorePosts = async () => {
         const response = await axios.get(route("posts.load"), {
             params: { page: currentPage.value + 1 },
         });
-        
+
         const { posts, current_page, last_page } = response.data;
 
         allPosts.value.push(...posts); // Append new posts
@@ -44,7 +44,8 @@ const fetchMorePosts = async () => {
 const handleScroll = () => {
     const section = document.querySelector("section"); // The section with the scrollable posts
     if (
-        section.scrollHeight - section.scrollTop <= section.clientHeight + 200 && 
+        section.scrollHeight - section.scrollTop <=
+        section.clientHeight + 200 &&
         !isLoading.value
     ) {
         fetchMorePosts();
@@ -56,76 +57,56 @@ onMounted(() => {
     const section = document.querySelector("section"); // The section with the scrollable posts
     section.addEventListener("scroll", handleScroll);
 });
-
-
 </script>
-
 
 <template>
     <Head title="Home" />
     <main class="grid grid-cols-[20%_55%_25%]">
-        <aside class="flex h-[100vh] flex-col justify-between p-5">
-            <nav class="flex flex-col justify-items-center gap-5">
-                <Link class="sidebar-links">
-                <font-awesome-icon icon="fa-house" /> Home</Link>
-                <Link class="sidebar-links">
-                <font-awesome-icon icon="fa-compass" /> Explore</Link>
-                <Link class="sidebar-links">
-                <font-awesome-icon icon="fa-inbox" /> Inbox</Link>
-                <Link class="sidebar-links">
-                <font-awesome-icon icon="fa-bookmark" />
-                Bookmarks</Link>
-                <Link class="sidebar-links">
-                <font-awesome-icon icon="fa-users" /> Connect</Link>
-                <Link class="sidebar-links">
-                <font-awesome-icon icon="fa-cog" /> Settings</Link>
-                <Link class="sidebar-links">
-                <font-awesome-icon icon="fa-user" /> Profile</Link>
-                <Link class="sidebar-links">
-                <font-awesome-icon icon="fa-ellipsis" /> More</Link>
-            </nav>
-            <div>
-                <span> <font-awesome-icon icon="fa-square-caret-left" class="text-xl" /> </span>
-                <Link :href="route('logout')" method="post" as="button"
-                    class="w-full bg-emerald-500 px-5 py-3 text-black">
-                Logout
-                </Link>
-            </div>
-        </aside>
+        
+        <sidebar />
 
-        <section class="border-x border-x-gray-800  overflow-x-hidden overflow-y-scroll max-h-[100vh]" id="posts-section">
-            <div class="flex justify-between items-center border-b border-b-gray-700">
-                <div class="text-center w-full border-r border-b-4 border-b-emerald-500 border-r-gray-700 py-5">For You
+        <section class="max-h-[100vh] overflow-x-hidden overflow-y-scroll border-x border-x-gray-800"
+            id="posts-section">
+            <div class="static top-96 flex items-center justify-between border-b border-b-gray-700">
+                <div class="w-full border-b-4 border-r border-b-emerald-500 border-r-gray-700 py-5 text-center">
+                    For You
                 </div>
-                <div class="text-center w-full py-5">Following</div>
-            </div>
-            <div v-for="post in allPosts" :key="post.id"
-                class="border-b border-b-gray-700 p-5 flex flex-col gap-5 justify-items-center">
-                <div class="flex gap-3 items-center">
-                    <div class="size-10 rounded-full bg-emerald-700 grid place-items-center">
-                        {{ post.user.username.charAt(0).toUpperCase() }}
-                    </div>
-                    <h1 class="font-bold text-lg">{{ post.user.username }}</h1>
-                </div>
-                <p>
-                    {{ post.content }}
-                </p>
-                <span class="text-gray-600 text-sm">
-                    {{ formatDate(post.created_at) }}
-                </span>
+                <div class="w-full py-5 text-center">Following</div>
             </div>
 
-            <div v-if="isLoading" class="text-center p-5">
+            <Post :posts="allPosts" />
+            
+            <div v-if="isLoading" class="p-5 text-center">
                 Loading more posts...
             </div>
-            <div v-if="noMorePosts" class="text-center p-5 text-red-500">
+            <div v-if="noMorePosts" class="p-5 text-center text-red-500">
                 No more posts available
             </div>
         </section>
 
-        <section class="p-5">
-            <h1 class="font-bold">{{ user.username }}</h1>
+        <section class="p-5 flex flex-col gap-5">
+            <!-- userinfo -->
+            <div class="rounded-full w-full flex items-center border border-gray-500 p-2 gap-2">
+                <div class="row-span-2 grid size-10 place-items-center rounded-full bg-emerald-700">
+                    {{ user.username.charAt(0).toUpperCase() }}
+                </div>
+                <div class="flex flex-col">
+                    <p class="font-bold text-lg">{{ user.username }}</p>
+                    <p class="text-sm text-gray-500">@{{ user.username }}</p>
+                </div>
+            </div>
+            <Link :href="route('logout')" method="post" as="button"
+                class="w-full rounded-full bg-emerald-500 px-5 py-3 text-black">
+            Logout </Link>
+            <!-- search bar -->
+            <div>
+                <input type="text" placeholder="Search..."
+                    class="w-full rounded-full bg-transparent focus-within:border-transparent focus-within:ring-accent" />
+            </div>
+            <!-- trending  -->
+            <div class="border border-gray-500 rounded-xl p-2">
+                <h1 class="font-bold">Trends for you</h1>
+            </div>
         </section>
     </main>
-
 </template>

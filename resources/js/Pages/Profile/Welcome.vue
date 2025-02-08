@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { Head } from "@inertiajs/vue3";
 import LoginForm from "@/Components/loginForm.vue";
 import SignUpForm from "@/Components/signupForm.vue";
+import Logo from "@/Components/ApplicationLogo.vue"
 
 const showLoginForm = ref(false);
 const showSignupForm = ref(false);
@@ -34,12 +35,8 @@ const closeDialog = () => {
 
     <Head title="Home" />
     <div class="flex min-h-screen flex-col items-center justify-items-center lg:justify-between gap-5 xl:px-32 lg:py-16 lg:flex-row lg:px-12 py-10">
-        <div>
-            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="lg:w-96 sm:w-72 xs:w-52 w-32">
-                <path
-                    d="M240 70H120l10 70h70l10 20 10 50 10 25H100M280 70v165m0-165h70a50 50 0 0 1 0 80h-70m0 0h70a50 50 0 0 1 0 85h-70"
-                    stroke="#fff" stroke-width="30" stroke-linejoin="bevel" fill="none" />
-            </svg>
+        <div class="lg:w-96 sm:w-72 xs:w-52 w-32">
+            <Logo />
         </div>
 
         <div class="flex flex-col items-center lg:items-start gap-10 lg:gap-0">

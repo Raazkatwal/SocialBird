@@ -14,6 +14,11 @@
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
+        <style>
+            :root{
+                scroll-behavior: smooth;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased bg-black text-white">
         @inertia

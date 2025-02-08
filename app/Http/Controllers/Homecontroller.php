@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Homecontroller extends Controller
 {
     public function index(Request $request){
-        $posts = Post::with('user:id,username')->latest()->paginate(10);
+        $posts = Post::with('user:id,username')->latest()->paginate(5);
         if ($request->wantsJson()) {
             return response()->json([
                 'posts' => $posts->items(),

@@ -24,14 +24,14 @@ function submit() {
         <h1 class="xs:text-3xl text-2xl font-extrabold uppercase">Welcome Back</h1>
 
         <div class="md:w-3/4 w-full">
-            <input type="text" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
+            <input type="text" class="input-field"
                 v-model="form.email_or_username" placeholder="Email or Username" required />
             <span v-if="form.errors.email_or_username" class="text-red-500 text-sm">{{ form.errors.email_or_username
                 }}</span>
         </div>
 
         <div class="md:w-3/4 w-full">
-            <input type="password" class="h-14 rounded-md bg-transparent text-lg font-medium text-white w-full"
+            <input type="password" class="input-field"
                 v-model="form.password" placeholder="Password" required />
             <span v-if="form.errors.password" class="text-red-500 text-sm">{{ form.errors.password }}</span>
         </div>

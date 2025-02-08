@@ -52,19 +52,19 @@ function submit() {
         <h1 class="text-3xl font-extrabold uppercase">Create Your Account</h1>
 
         <div class="w-full">
-            <input type="text" name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
+            <input type="text" name="" class="input-field"
                 placeholder="Username" v-model="form.name" required />
             <span v-if="form.errors.name" class="text-red-500 text-sm">{{ form.errors.name }}</span>
         </div>
 
         <div class="w-full">
-            <input type="email" name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
+            <input type="email" name="" class="input-field"
                 placeholder="Email" v-model="form.email" required />
             <span v-if="form.errors.email" class="text-red-500 text-sm">{{ form.errors.email }}</span>
         </div>
 
         <div class="w-full">
-            <input type="password" name="" class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
+            <input type="password" name="" class="input-field"
                 placeholder="Password" v-model="form.password" required />
             <span v-if="form.errors.password" class="text-red-500 text-sm">{{ form.errors.password }}</span>
         </div>
@@ -74,7 +74,7 @@ function submit() {
 
             <div class="flex gap-3 flex-col md:flex-row">
 
-                <select class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white" v-model="form.day"
+                <select class="input-field" v-model="form.day"
                     required>
                     <option value="" class="bg-black text-white" disabled>Day</option>
                     <option v-for="day in days" :key="day" :value="day" class="bg-black text-white">
@@ -82,7 +82,7 @@ function submit() {
                     </option>
                 </select>
 
-                <select class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white"
+                <select class="input-field"
                     v-model="form.month" required>
                     <option value="" class="bg-black text-white" disabled>Month</option>
                     <option v-for="month in months" :key="month" :value="month" class="bg-black text-white">
@@ -90,7 +90,7 @@ function submit() {
                     </option>
                 </select>
 
-                <select class="h-14 w-full rounded-md bg-transparent text-lg font-medium text-white" v-model="form.year"
+                <select class="input-field" v-model="form.year"
                     required>
                     <option value="" class="bg-black text-white" disabled>Year</option>
                     <option v-for="year in years" :key="year" :value="year" class="bg-black text-white">
