@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Authenticatable
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'username',
         'email',
@@ -17,7 +17,12 @@ class User extends Authenticatable
         'date_of_birth',
     ];
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class);
+    }
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
     }
 }
