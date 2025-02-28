@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Homecontroller;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\guestOnly;
 use App\Http\Middleware\userOnly;
@@ -19,4 +20,6 @@ Route::controller(Usercontroller::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout');
     Route::post('/login', 'login')->name('login');
 });
+
+Route::post('/like/{postId}', [LikeController::class, 'toggleLike'])->middleware(userOnly::class)->name('posts.like');
 

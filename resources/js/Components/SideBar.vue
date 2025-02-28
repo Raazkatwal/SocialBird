@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
-import Logo from "@/Components/ApplicationLogo.vue"
+import { House, Compass, Inbox, Bookmark, Users, Settings, User, Ellipsis } from 'lucide-vue-next';
+import Logo from "@/Components/ApplicationLogo.vue";
 </script>
 <template>
     <aside class="flex h-[100vh] flex-col justify-between p-5">
@@ -12,22 +13,22 @@ import Logo from "@/Components/ApplicationLogo.vue"
         <nav class="flex flex-col justify-items-center gap-2 text-lg">
             <Logo :width="200" :height="70"/>
             <Link class="sidebar-links">
-            <font-awesome-icon icon="fa-house" /> Home</Link>
+            <House /> Home</Link>
             <Link class="sidebar-links">
-            <font-awesome-icon icon="fa-compass" /> Explore</Link>
+            <Compass /> Explore</Link>
             <Link class="sidebar-links">
-            <font-awesome-icon icon="fa-inbox" /> Inbox</Link>
+            <Inbox /> Inbox</Link>
             <Link class="sidebar-links">
-            <font-awesome-icon icon="fa-bookmark" />
+            <Bookmark />
             Bookmarks</Link>
             <Link class="sidebar-links">
-            <font-awesome-icon icon="fa-users" /> Connect</Link>
+            <Users /> Connect</Link>
             <Link class="sidebar-links">
-            <font-awesome-icon icon="fa-cog" /> Settings</Link>
+            <Settings /> Settings</Link>
             <Link class="sidebar-links">
-            <font-awesome-icon icon="fa-user" /> Profile</Link>
+            <User /> Profile</Link>
             <Link class="sidebar-links">
-            <font-awesome-icon icon="fa-ellipsis" /> More</Link>
+            <Ellipsis /> More</Link>
         </nav>
         <div>
             <!-- <span>

@@ -1,11 +1,12 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, inject, provide } from "vue";
 import axios from "axios";
 import { Head, Link } from "@inertiajs/vue3";
 import sidebar from "@/Components/SideBar.vue";
 import Post from "@/Components/Post.vue";
 
-const props = defineProps({ user: Object, posts: Object });
+const props = defineProps({ posts: Object, user: Object });
+provide("user", props.user);
 
 const allPosts = ref(props.posts.data);
 const currentPage = ref(props.posts.current_page);

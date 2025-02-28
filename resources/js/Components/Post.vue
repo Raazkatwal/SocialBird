@@ -1,10 +1,30 @@
 <script setup>
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { Bookmark, Heart, MessageCircle, Repeat2, Share2 } from "lucide-vue-next";
+import { inject, onUpdated, ref } from "vue";
+
+const user = inject('user');
+
 
 dayjs.extend(relativeTime);
-defineProps({ posts: Object });
+const props = defineProps({ posts: Object });
+
+
 const formatDate = (date) => dayjs(date).fromNow();
+
+const toggleLike = async (postId) => {
+    try {
+        const response = await axios.post(route("posts.like", postId));            
+        const post = props.posts.find(p => p.id === postId);
+        if (post) {
+            post.total_likes = response.data.likes_count;
+            user.liked_posts = response.data.liked_posts;
+        }
+    } catch (error) {
+        console.error("Error liking post:", error);
+    }
+};
 </script>
 
 <template>
@@ -18,7 +38,7 @@ const formatDate = (date) => dayjs(date).fromNow();
                 <h1 class="text-left text-lg font-bold">
                     {{ post.user.username }}
                 </h1>
-                <span class="text-xs text-gray-600">
+                <span class="text-sm text-gray-600">
                     {{ formatDate(post.created_at) }}
                 </span>
             </div>
@@ -31,26 +51,27 @@ const formatDate = (date) => dayjs(date).fromNow();
         </div>
         <div class="col-span-2 flex w-full justify-around">
             <div
-                class="duration-400 grid size-7 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-accent">
-                <font-awesome-icon :icon="['far', 'comment']" />
+                class="duration-400 grid size-8 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-accent">
+                <MessageCircle :size="20" />
             </div>
             <div
-                class="duration-400 grid size-7 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-violet-500">
-                <font-awesome-icon icon="fa-retweet" />
+                class="duration-400 grid size-8 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-violet-500">
+                <Repeat2 :size="20" />
             </div>
-            <div class="flex gap-1 items-center" @click="post.total_likes++">
-                <div
-                    class="duration-400 grid size-7 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-red-500">
-                    <font-awesome-icon :icon="['far', 'heart']" />
-                </div>{{ post.total_likes }}
-            </div>
-            <div
-                class="duration-400 grid size-7 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-yellow-500">
-                <font-awesome-icon :icon="['far', 'bookmark']" />
+            <div class="flex gap-1 items-center">
+                <div @click="toggleLike(post.id)"
+                    class="duration-400 grid size-8 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-red-500">
+                    <Heart :size="20" :class="user.liked_posts.map(p=>{return p.id === post.id ? 'fill-red-500 text-red-500' : ''}) "/>
+                </div>
+                {{ post.total_likes }}
             </div>
             <div
-                class="duration-400 grid size-7 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-blue-500">
-                <font-awesome-icon icon="fa-share-alt" />
+                class="duration-400 grid size-8 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-yellow-500">
+                <Bookmark :size="20" />
+            </div>
+            <div
+                class="duration-400 grid size-8 place-items-center rounded-full transition-all ease-in-out hover:cursor-pointer hover:bg-gray-900 hover:text-blue-500">
+                <Share2 :size="20" />
             </div>
         </div>
     </div>

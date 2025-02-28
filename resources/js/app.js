@@ -1,13 +1,10 @@
 import '../css/app.css';
 import './bootstrap';
-import './fontawesome'
 
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -21,15 +18,11 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         const app = createApp({ render: () => h(App, props) });
 
-        /* Register FontAwesomeIcon as a global component */
-        app.component('font-awesome-icon', FontAwesomeIcon);
-
         return app.use(plugin)
                 .use(ZiggyVue)
                 .mount(el);
     },
     progress: {
-        // color: '#4B5563',
         color: '#10b981',
     },
 });
